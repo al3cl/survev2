@@ -11,6 +11,7 @@ import {
     zFindDiscordUserSlugParams,
     zGiveItemParams,
     zGiveXpParams,
+    zHashIpParams,
     zLogoutFromGameParams,
     zRemoveItemParams,
     zResetPassParams,
@@ -26,7 +27,7 @@ import { searchPlayersHandler } from "./search-player.ts";
 import { spectateCommandHandler } from "./spectate-player.ts";
 
 /**
- * for generic commands that only makes an api call and return it's meessage
+ * for generic commands that only make an api call and return its message
  */
 const commands = {
     [Command.BanIp]: createCommand({
@@ -356,6 +357,19 @@ const commands = {
         requiresAdmin: true,
         isPrivateRoute: true,
         options: [],
+    }),
+    [Command.HashIp]: createCommand({
+        name: Command.HashIp,
+        description: "Hash an IP",
+        optionValidator: zHashIpParams,
+        options: [
+            {
+                name: "ip",
+                description: "The IPv4 address to hash",
+                required: true,
+                type: ApplicationCommandOptionType.String,
+            },
+        ],
     }),
 } as unknown as Record<
     Exclude<Command, "search_player">,

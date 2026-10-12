@@ -10,6 +10,7 @@ import {
     zFindDiscordUserSlugParams,
     zGetPlayerIpParams,
     zGiveXpParams,
+    zHashIpParams,
     zLogoutFromGameParams,
     zResetPassParams,
     zResetStatsParams,
@@ -560,6 +561,11 @@ export const ModerationRouter = new Hono()
             await Promise.all(promises);
             stream.close();
         });
+    })
+    .post("hash_ip", validateParams(zHashIpParams), async (c) => {
+        const { ip } = c.req.valid("json");
+
+        return c.json({ message: `Hashed IP: ${hashIp(ip)}` }, 200);
     });
 
 async function banAccount(userId: string, banReason: string, executorId: string) {

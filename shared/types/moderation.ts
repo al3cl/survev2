@@ -100,3 +100,7 @@ export const zSpectateFilter = z.object({
 export const zSpectateGameParams = z.object({
     filter: zSpectateFilter,
 });
+
+export const zHashIpParams = z.object({
+    ip: z.ipv4(),
+});
